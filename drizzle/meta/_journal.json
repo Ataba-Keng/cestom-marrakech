@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1790565405510,
+      "tag": "0000_flowery_toxin",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1790567585592,
+      "tag": "0001_flowery_sphinx",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1790568921434,
+      "tag": "0002_jittery_legion",
+      "breakpoints": true
+    }
+  ]
+}

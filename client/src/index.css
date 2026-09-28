@@ -1,0 +1,217 @@
+@import "tailwindcss";
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-border: var(--border);
+  --radius-sm: calc(var(--radius) - 0.4rem);
+  --radius-md: calc(var(--radius) - 0.2rem);
+  --radius-lg: var(--radius);
+}
+
+:root {
+  --background: #fbfcf9;
+  --foreground: #17221c;
+  --card: #ffffff;
+  --card-foreground: #17221c;
+  --primary: #075b36;
+  --primary-foreground: #ffffff;
+  --muted: #f1f5f1;
+  --muted-foreground: #587063;
+  --accent: #f4c430;
+  --accent-foreground: #17221c;
+  --border: #dfe8e0;
+  --radius: 1rem;
+}
+
+* {
+  border-color: var(--border);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 320px;
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  background: #f4c430;
+  color: #17221c;
+}
+
+.section-shell {
+  width: min(100% - 2.5rem, 1180px);
+  margin-inline: auto;
+}
+
+.flag-line {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 50;
+  display: flex;
+  height: 4px;
+}
+
+.flag-line span {
+  flex: 1;
+}
+
+.hero-shell {
+  isolation: isolate;
+}
+
+.hero-grid {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.18) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.18) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: linear-gradient(to bottom, black, transparent 78%);
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  color: #009b3a;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.21em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.eyebrow-light {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.eyebrow-dot {
+  display: inline-block;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 999px;
+  background: #009b3a;
+}
+
+.section-heading {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 5vw, 4.7rem);
+  font-weight: 800;
+  letter-spacing: -0.065em;
+  line-height: 0.98;
+}
+
+.display-heading {
+  font-family: var(--font-display);
+}
+
+.nav-link {
+  position: relative;
+  padding-block: 0.5rem;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color 180ms ease-out;
+}
+
+.nav-link::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  border-radius: 999px;
+  background: #f4c430;
+  content: "";
+  opacity: 0;
+  transform: scaleX(0.4);
+  transition: opacity 180ms ease-out, transform 180ms ease-out;
+}
+
+.nav-link:hover,
+.nav-link-active {
+  color: #fff;
+}
+
+.nav-link:hover::after,
+.nav-link-active::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.activity-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 0.9rem;
+}
+
+.activity-icon-green {
+  background: #009b3a;
+  color: #fff;
+}
+
+.activity-icon-yellow {
+  background: #f4c430;
+  color: #17221c;
+}
+
+.activity-icon-red {
+  background: #d62828;
+  color: #fff;
+}
+
+.stat-block::before {
+  position: absolute;
+  top: 0;
+  left: 1.75rem;
+  width: 2.5rem;
+  height: 3px;
+  border-radius: 999px;
+  background: #f4c430;
+  content: "";
+}
+
+@media (max-width: 639px) {
+  .section-shell {
+    width: min(100% - 2rem, 1180px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
