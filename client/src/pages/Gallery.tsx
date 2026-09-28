@@ -16,86 +16,7 @@ type GalleryItem = {
 };
 
 const fallbackGalleryItems: GalleryItem[] = [
-  {
-    year: 2025,
-    title: "Journée d’intégration",
-    category: "Accueil & orientation",
-    date: "15 septembre 2025",
-    location: "Marrakech",
-    image: "/manus-storage/LU1CVwYAJmGp_48941b97.jpeg",
-    alt: "Place animée de Marrakech, visuel de démonstration",
-    count: "24 photos",
-  },
-  {
-    year: 2025,
-    title: "Rencontre interculturelle",
-    category: "Culture & partage",
-    date: "18 mai 2025",
-    location: "Marrakech",
-    image: "/manus-storage/fvK2qo0Jxk2N_f0c8e1fa.jpeg",
-    alt: "Groupe en visite culturelle, visuel de démonstration",
-    count: "36 photos",
-  },
-  {
-    year: 2024,
-    title: "Accueil des nouveaux étudiants",
-    category: "Vie communautaire",
-    date: "12 octobre 2024",
-    location: "Marrakech",
-    image: "/manus-storage/kDkBjFbOdFqt_446ed9a2.jpg",
-    alt: "Architecture de Marrakech, visuel de démonstration",
-    count: "18 photos",
-  },
-  {
-    year: 2024,
-    title: "Une année en partage",
-    category: "Temps forts",
-    date: "22 juin 2024",
-    location: "Marrakech",
-    image: "/manus-storage/LU1CVwYAJmGp_48941b97.jpeg",
-    alt: "Place de Marrakech, visuel de démonstration",
-    count: "29 photos",
-  },
-  {
-    year: 2023,
-    title: "Rencontre de rentrée",
-    category: "Accueil & orientation",
-    date: "30 septembre 2023",
-    location: "Marrakech",
-    image: "/manus-storage/fvK2qo0Jxk2N_f0c8e1fa.jpeg",
-    alt: "Patrimoine marocain, visuel de démonstration",
-    count: "21 photos",
-  },
-  {
-    year: 2023,
-    title: "Passerelles culturelles",
-    category: "Culture & partage",
-    date: "08 avril 2023",
-    location: "Marrakech",
-    image: "/manus-storage/kDkBjFbOdFqt_446ed9a2.jpg",
-    alt: "Patrimoine architectural, visuel de démonstration",
-    count: "32 photos",
-  },
-  {
-    year: 2022,
-    title: "Les premiers liens",
-    category: "Archives fondatrices",
-    date: "19 novembre 2022",
-    location: "Marrakech",
-    image: "/manus-storage/LU1CVwYAJmGp_48941b97.jpeg",
-    alt: "Marrakech, visuel de démonstration",
-    count: "16 photos",
-  },
-  {
-    year: 2022,
-    title: "Une communauté se rencontre",
-    category: "Vie communautaire",
-    date: "14 mai 2022",
-    location: "Marrakech",
-    image: "/manus-storage/fvK2qo0Jxk2N_f0c8e1fa.jpeg",
-    alt: "Groupe dans un lieu culturel, visuel de démonstration",
-    count: "27 photos",
-  },
+ 
 ];
 
 export default function Gallery() {
@@ -103,20 +24,21 @@ export default function Gallery() {
   const [selectedItem, setSelectedItem] = useState<GalleryItem | null>(null);
   const albumsQuery = trpc.gallery.list.useQuery();
 
-  const galleryItems = useMemo<GalleryItem[]>(() => {
-    if (!albumsQuery.data?.length) return fallbackGalleryItems;
-    return albumsQuery.data.map((album) => ({
-      id: album.id,
-      year: album.year,
-      title: album.title,
-      category: album.category,
-      date: album.eventDate,
-      location: album.location,
-      image: album.imageUrl,
-      alt: album.imageAlt,
-      count: `${album.photoCount} photos`,
-    }));
-  }, [albumsQuery.data]);
+const galleryItems = useMemo<GalleryItem[]>(() => {
+  if (!albumsQuery.data?.length) return [];
+
+  return albumsQuery.data.map((album) => ({
+    id: album.id,
+    year: album.year,
+    title: album.title,
+    category: album.category,
+    date: album.eventDate,
+    location: album.location,
+    image: album.imageUrl,
+    alt: album.imageAlt,
+    count: `${album.photoCount} photos`,
+  }));
+}, [albumsQuery.data]);
 
   const years = useMemo(
     () => ["Toutes", ...Array.from(new Set(galleryItems.map((item) => item.year))).sort((a, b) => b - a).map(String)],
