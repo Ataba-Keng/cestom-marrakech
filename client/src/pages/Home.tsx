@@ -278,12 +278,17 @@ export default function Home() {
             </div>
             <div className="gallery-preview grid grid-cols-[1.05fr_.95fr] gap-4">
               <div className="relative min-h-[380px] overflow-hidden rounded-[1.5rem] bg-[#dfe8e0]">
-                <img src="/manus-storage/LU1CVwYAJmGp_48941b97.jpeg" alt="Ambiance de Marrakech, visuel de démonstration" className="absolute inset-0 size-full object-cover transition-transform duration-700 hover:scale-105" />
-                <div className="absolute inset-x-4 bottom-4 rounded-xl bg-[#17221c]/80 p-4 text-white backdrop-blur-sm"><span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#f4c430]">Archive à venir</span><p className="mt-1 font-bold">Marrakech · 2025</p></div>
+                <img
+                  src="/assets/galerie-accueil2.png"
+                  alt="Souvenir de la communauté CESTOM Marrakech"
+                  className="absolute inset-0 size-full object-cover transition-transform duration-700 hover:scale-105"
+                />
+
+                <div className="absolute inset-x-4 bottom-4 rounded-xl bg-[#17221c]/80 p-4 text-white backdrop-blur-sm"><span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#f4c430]">Nos souvenirs</span><p className="mt-1 font-bold">La communauté CESTOM Marrakech</p></div>
               </div>
               <div className="grid gap-4">
                 <div className="relative min-h-[182px] overflow-hidden rounded-[1.5rem] bg-[#dfe8e0]"><img src="/manus-storage/fvK2qo0Jxk2N_f0c8e1fa.jpeg" alt="Groupe en visite culturelle, visuel de démonstration" className="absolute inset-0 size-full object-cover transition-transform duration-700 hover:scale-105" /></div>
-                <div className="relative min-h-[182px] overflow-hidden rounded-[1.5rem] bg-[#f4c430] p-6"><CalendarDays className="size-7 text-[#075b36]" /><p className="mt-8 text-xl font-extrabold leading-tight tracking-[-0.03em] text-[#075b36]">Bientôt, vos albums classés par année.</p><span className="absolute bottom-5 right-5 text-5xl font-black text-[#075b36]/15">02</span></div>
+                <div className="relative min-h-[182px] overflow-hidden rounded-[1.5rem] bg-[#dfe8e0]"><img src="/assets/galerie-accueil.jpg" alt="Moment de vie de la communauté CESTOM Marrakech" className="absolute inset-0 size-full object-cover transition-transform duration-700 hover:scale-105"/><div className="absolute inset-x-4 bottom-4 rounded-xl bg-[#17221c]/80 p-4 text-white backdrop-blur-sm"><span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#f4c430]">Vie associative</span><p className="mt-1 font-bold">Les moments forts de la CESTOM</p></div></div>
               </div>
             </div>
           </div>
