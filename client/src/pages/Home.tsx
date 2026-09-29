@@ -111,7 +111,7 @@ export default function Home() {
               </span>
             </a>
 
-            <nav className="ml-auto hidden shrink-0 items-center gap-7 lg:flex xl:gap-8" aria-label="Navigation principale">
+            <nav className="ml-auto hidden shrink-0 items-center gap-6 lg:flex xl:gap-7" aria-label="Navigation principale">
               <a className="nav-link nav-link-active" href="#accueil">Accueil</a>
               <a className="nav-link" href="#association">À propos</a>
               <a className="nav-link" href="#activites">Activités</a>
@@ -120,7 +120,7 @@ export default function Home() {
               <a className="nav-link" href="/galerie">Galerie</a>
             </nav>
 
-            <a href="#contact" className="ml-8 hidden shrink-0 items-center gap-2 rounded-full bg-[#f4c430] px-5 py-3 text-xs font-extrabold uppercase tracking-[0.12em] text-[#17221c] transition-transform duration-200 hover:-translate-y-0.5 active:scale-[0.97] md:flex">
+            <a href="#contact" className="ml-3 hidden shrink-0 items-center gap-2 rounded-full bg-[#f4c430] px-5 py-3 text-xs font-extrabold uppercase tracking-[0.12em] text-[#17221c] transition-transform duration-200 hover:-translate-y-0.5 active:scale-[0.97] md:flex">
               Nous rejoindre <ArrowUpRight className="size-4" />
             </a>
 
@@ -135,7 +135,7 @@ export default function Home() {
           </div>
 
           {menuOpen && (
-            <nav className="mt-2 grid gap-1 rounded-2xl border border-white/15 bg-[#075b36]/95 p-3 shadow-2xl backdrop-blur lg:hidden" aria-label="Navigation mobile">
+            <nav className="mt-2 grid gap-1 rounded-2xl border border-white/15 bg-[#B15C01]/95 p-3 shadow-2xl backdrop-blur lg:hidden" aria-label="Navigation mobile">
               {[
                 ["Accueil", "#accueil"],
                 ["À propos", "#association"],
@@ -143,6 +143,7 @@ export default function Home() {
                 ["Actualités", "/actualites"],
                 ["Bureau exécutif", "/bureau-executif"],
                 ["Galerie", "/galerie"],
+                ["Nous rejoindre", "#contact"],
               ].map(([label, href]) => (
                 <a key={href} href={href} onClick={() => setMenuOpen(false)} className="rounded-xl px-4 py-3 text-sm font-semibold text-white/90 hover:bg-white/10">
                   {label}
@@ -154,7 +155,7 @@ export default function Home() {
       </header>
 
       <main>
-        <section id="accueil" className="hero-shell relative isolate flex min-h-[710px] items-end overflow-hidden bg-[#075b36] pt-32 text-white">
+        <section id="accueil" className="hero-shell relative isolate flex min-h-[710px] items-end overflow-hidden bg-[#B15C01] pt-32 text-white">
           {slides.map((item, index) => (
             <div
               key={item.image}
@@ -178,7 +179,7 @@ export default function Home() {
               </h1>
               <p className="mt-7 max-w-xl text-base leading-7 text-white/80 sm:text-lg">{slide.copy}</p>
               <div className="mt-9 flex flex-wrap items-center gap-4">
-                <a href="#association" className="inline-flex items-center gap-3 rounded-full bg-white px-6 py-3.5 text-sm font-extrabold text-[#075b36] transition-transform duration-200 hover:-translate-y-0.5 active:scale-[0.97]">
+                <a href="#association" className="inline-flex items-center gap-3 rounded-full bg-white px-6 py-3.5 text-sm font-extrabold text-[#B15C01] transition-transform duration-200 hover:-translate-y-0.5 active:scale-[0.97]">
                   Découvrir la CESTOM <ArrowRight className="size-4" />
                 </a>
                 <a href="/galerie" className="inline-flex items-center gap-2 rounded-full border border-white/35 px-5 py-3.5 text-sm font-bold text-white transition-colors hover:bg-white/10">
@@ -220,20 +221,20 @@ export default function Home() {
               <p className="eyebrow"><span className="eyebrow-dot" />Notre raison d’être</p>
               <h2 className="section-heading mt-6 max-w-md">Faire de chaque parcours une force collective.</h2>
               <div className="mt-8 flex items-start gap-4 border-l-2 border-[#f4c430] pl-5 text-sm leading-6 text-[#587063]">
-                <Quote className="mt-1 size-5 shrink-0 text-[#009b3a]" />
+                <Quote className="mt-1 size-5 shrink-0 text-[#B15C01]" />
                 <p>La Coordination des étudiants et stagiaires togolais au Maroc — Section Marrakech est un espace de repères, de solidarité et d’ambition pour les étudiants et stagiaires togolais au Maroc.</p>
               </div>
             </div>
             <div className="max-w-xl lg:pt-8">
               <p className="text-lg leading-8 text-[#40534a]">Nous créons des passerelles entre les personnes, les expériences et les opportunités. Notre antenne accompagne les nouveaux arrivants, anime la vie communautaire et garde vivante la mémoire de nos moments partagés.</p>
-              <a href="#activites" className="group mt-8 inline-flex items-center gap-3 text-sm font-extrabold uppercase tracking-[0.12em] text-[#075b36]">Explorer nos engagements <span className="flex size-9 items-center justify-center rounded-full bg-[#e6f0e9] transition-colors group-hover:bg-[#f4c430]"><ArrowRight className="size-4" /></span></a>
+              <a href="#activites" className="group mt-8 inline-flex items-center gap-3 text-sm font-extrabold uppercase tracking-[0.12em] text-[#B15C01]">Explorer nos engagements <span className="flex size-9 items-center justify-center rounded-full bg-[#e6f0e9] transition-colors group-hover:bg-[#f4c430]"><ArrowRight className="size-4" /></span></a>
             </div>
           </div>
 
           <div className="mt-20 grid border-y border-[#dfe8e0] sm:grid-cols-3">
             {stats.map((stat, index) => (
               <div key={stat.label} className={`stat-block relative py-8 sm:px-7 ${index !== 0 ? "border-t border-[#dfe8e0] sm:border-l sm:border-t-0" : ""}`}>
-                <span className="text-6xl font-black tracking-[-0.06em] text-[#075b36]">{stat.value}</span>
+                <span className="text-6xl font-black tracking-[-0.06em] text-[#B15C01]">{stat.value}</span>
                 <p className="mt-4 text-sm font-extrabold uppercase tracking-[0.1em] text-[#17221c]">{stat.label}</p>
                 <p className="mt-1 text-sm text-[#74877b]">{stat.note}</p>
               </div>
@@ -241,7 +242,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="activites" className="bg-[#075b36] py-24 text-white sm:py-32">
+        <section id="activites" className="bg-[#B15C01] py-24 text-white sm:py-32">
           <div className="section-shell">
             <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
               <div>
@@ -273,7 +274,7 @@ export default function Home() {
               <p className="eyebrow"><span className="eyebrow-dot bg-[#d62828]" />Mémoire en images</p>
               <h2 className="section-heading mt-6 max-w-md">Les moments qui restent.</h2>
               <p className="mt-6 max-w-md text-base leading-7 text-[#587063]">La galerie de la CESTOM sera organisée par année et par événement pour retrouver facilement les souvenirs de notre communauté.</p>
-              <a href="/galerie" className="mt-8 inline-flex items-center gap-2 rounded-full border border-[#cbd9ce] px-5 py-3 text-sm font-bold text-[#075b36] transition-colors hover:border-[#075b36] hover:bg-[#e6f0e9]">Voir les archives <ArrowRight className="size-4" /></a>
+              <a href="/galerie" className="mt-8 inline-flex items-center gap-2 rounded-full border border-[#cbd9ce] px-5 py-3 text-sm font-bold text-[#B15C01] transition-colors hover:border-[#B15C01] hover:bg-[#e6f0e9]">Voir les archives <ArrowRight className="size-4" /></a>
             </div>
             <div className="gallery-preview grid grid-cols-[1.05fr_.95fr] gap-4">
               <div className="relative min-h-[380px] overflow-hidden rounded-[1.5rem] bg-[#dfe8e0]">
@@ -290,31 +291,31 @@ export default function Home() {
 
         <section id="contact" className="section-shell pb-24 sm:pb-32">
           <div className="relative overflow-hidden rounded-[2rem] bg-[#f4c430] px-7 py-12 sm:px-14 sm:py-16 lg:px-20">
-            <div className="absolute -right-12 -top-24 size-72 rounded-full border-[40px] border-[#009b3a]/10" aria-hidden="true" />
+            <div className="absolute -right-12 -top-24 size-72 rounded-full border-[40px] border-[#B15C01]/10" aria-hidden="true" />
             <div className="relative grid gap-10 lg:grid-cols-[1fr_auto] lg:items-end">
               <div>
-                <p className="eyebrow text-[#075b36]"><span className="eyebrow-dot bg-[#d62828]" />Restons connectés</p>
-                <h2 className="mt-5 max-w-2xl text-4xl font-black leading-[1.02] tracking-[-0.05em] text-[#075b36] sm:text-5xl">Une question, une idée, une envie de contribuer ?</h2>
+                <p className="eyebrow text-[#B15C01]"><span className="eyebrow-dot bg-[#d62828]" />Restons connectés</p>
+                <h2 className="mt-5 max-w-2xl text-4xl font-black leading-[1.02] tracking-[-0.05em] text-[#B15C01] sm:text-5xl">Une question, une idée, une envie de contribuer ?</h2>
               </div>
-              <a href="mailto:cestom.marrakech@gmail.com" className="inline-flex items-center justify-center gap-3 rounded-full bg-[#075b36] px-6 py-4 text-sm font-extrabold text-white transition-transform duration-200 hover:-translate-y-0.5 active:scale-[0.97]"><Mail className="size-4" /> Nous écrire <ArrowUpRight className="size-4" /></a>
+              <a href="mailto:cestom.marrakech@gmail.com" className="inline-flex items-center justify-center gap-3 rounded-full bg-[#B15C01] px-6 py-4 text-sm font-extrabold text-white transition-transform duration-200 hover:-translate-y-0.5 active:scale-[0.97]"><Mail className="size-4" /> Nous écrire <ArrowUpRight className="size-4" /></a>
             </div>
           </div>
         </section>
       </main>
 
-      <footer className="bg-[#17221c] py-10 text-white">
+      <footer className="bg-[#8F4900] py-10 text-white">
         <div className="section-shell flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
           <div className="flex items-center gap-3">
             <span className="flex h-12 w-44 items-center justify-center"><img src={logo} alt="Logo CESTOM" className="h-full w-full object-contain drop-shadow-[0_3px_6px_rgba(0,0,0,0.35)]" /></span>
-            <div><p className="max-w-xs text-sm font-extrabold">Coordination des étudiants et stagiaires togolais au Maroc — Section Marrakech</p><p className="mt-1 text-xs text-white/45">Coordonner · Accompagner · Inspirer</p></div>
+            <div><p className="max-w-xs text-sm font-extrabold">Coordination des étudiants et stagiaires togolais au Maroc — Section Marrakech</p><p className="mt-1 text-xs text-white/75">Coordonner · Accompagner · Inspirer</p></div>
           </div>
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-xs text-white/55">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-xs text-white/85">
             <span className="inline-flex items-center gap-2"><MapPin className="size-3.5 text-[#f4c430]" /> Marrakech, Maroc</span>
             <a href="mailto:cestom.marrakech@gmail.com" className="inline-flex items-center gap-2 transition-colors hover:text-white"><Mail className="size-3.5 text-[#f4c430]" /> cestom.marrakech@gmail.com</a>
             <span className="flex items-center gap-3 border-l border-white/15 pl-5"><a href="https://www.facebook.com/CestomMarrakech/" target="_blank" rel="noreferrer" aria-label="Facebook CESTOM Marrakech"><Facebook className="size-4" /></a><a href="https://www.instagram.com/cestom.marrakech/" target="_blank" rel="noreferrer" aria-label="Instagram CESTOM Marrakech"><Instagram className="size-4" /></a></span>
           </div>
         </div>
-        <div className="section-shell mt-8 border-t border-white/10 pt-5 text-[11px] text-white/35">© {new Date().getFullYear()} Coordination des étudiants et stagiaires togolais au Maroc — Section Marrakech</div>
+        <div className="section-shell mt-8 border-t border-white/25 pt-5 text-[11px] text-white/65">© {new Date().getFullYear()} Coordination des étudiants et stagiaires togolais au Maroc — Section Marrakech</div>
       </footer>
     </div>
   );

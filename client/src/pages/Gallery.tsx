@@ -105,7 +105,7 @@ export default function Gallery() {
     <div className="min-h-screen bg-[#fbfcf9] text-[#17221c]">
       <div className="flag-line" aria-hidden="true"><span className="bg-[#009b3a]" /><span className="bg-[#f4c430]" /><span className="bg-[#d62828]" /></div>
 
-      <header className="border-b border-white/20 bg-[#075b36] pt-1 text-white">
+      <header className="border-b border-white/20 bg-[#B15C01] pt-1 text-white">
         <div className="section-shell flex items-center justify-between py-5">
           <Link href="/" className="flex items-center gap-3" aria-label="Retour à l’accueil CESTOM">
             <span className="flex h-14 w-52 items-center justify-center sm:w-64"><img src="/assets/cestom-logo.webp" alt="Logo CESTOM" className="h-full w-full object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.22)]" /></span>
@@ -116,8 +116,8 @@ export default function Gallery() {
       </header>
 
       <main>
-        <section className="relative overflow-hidden bg-[#075b36] py-20 text-white sm:py-28">
-          <div className="absolute -right-20 -top-40 size-[420px] rounded-full border-[60px] border-[#009b3a]/30" aria-hidden="true" />
+        <section className="relative overflow-hidden bg-[#B15C01] py-20 text-white sm:py-28">
+          <div className="absolute -right-20 -top-40 size-[420px] rounded-full border-[60px] border-[#B15C01]/30" aria-hidden="true" />
           <div className="hero-grid absolute inset-0 opacity-10" aria-hidden="true" />
           <div className="section-shell relative">
             <p className="eyebrow eyebrow-light"><span className="eyebrow-dot bg-[#f4c430]" />Mémoire en images</p>
@@ -143,7 +143,7 @@ export default function Gallery() {
             <div className="flex flex-wrap items-center gap-2" role="group" aria-label="Filtrer les albums par année">
               <span className="mr-2 hidden items-center gap-2 text-xs font-bold uppercase tracking-[0.12em] text-[#74877b] sm:inline-flex"><Filter className="size-4" /> Année</span>
               {years.map((year) => (
-                <button key={year} type="button" onClick={() => setSelectedYear(year)} aria-pressed={selectedYear === year} className={`rounded-full px-5 py-2.5 text-sm font-extrabold transition-all duration-200 active:scale-[0.97] ${selectedYear === year ? "bg-[#075b36] text-white shadow-lg shadow-[#075b36]/15" : "border border-[#d4e0d6] bg-white text-[#587063] hover:border-[#075b36] hover:text-[#075b36]"}`}>
+                <button key={year} type="button" onClick={() => setSelectedYear(year)} aria-pressed={selectedYear === year} className={`rounded-full px-5 py-2.5 text-sm font-extrabold transition-all duration-200 active:scale-[0.97] ${selectedYear === year ? "bg-[#B15C01] text-white shadow-lg shadow-[#B15C01]/15" : "border border-[#d4e0d6] bg-white text-[#587063] hover:border-[#B15C01] hover:text-[#B15C01]"}`}>
                   {year}
                 </button>
               ))}
@@ -152,7 +152,7 @@ export default function Gallery() {
 
           <div className="mt-8 flex items-center justify-between text-sm text-[#74877b]">
             <p><span className="font-extrabold text-[#17221c]">{filteredItems.length}</span> {filteredItems.length > 1 ? "albums" : "album"} {selectedYear !== "Toutes" ? `en ${selectedYear}` : "dans les archives"}</p>
-            <div className="hidden items-center gap-2 sm:flex"><span className="size-2 rounded-full bg-[#009b3a]" /> Albums disponibles</div>
+            <div className="hidden items-center gap-2 sm:flex"><span className="size-2 rounded-full bg-[#B15C01]" /> Albums disponibles</div>
           </div>
 
           {filteredItems.length > 0 ? (
@@ -161,12 +161,12 @@ export default function Gallery() {
                 <article key={`${item.year}-${item.title}`} className="group overflow-hidden rounded-[1.5rem] border border-[#e1e9e2] bg-white shadow-[0_12px_40px_rgba(20,68,42,0.05)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_50px_rgba(20,68,42,0.12)]">
                   <button type="button" onClick={() => { setSelectedItem(item); setSelectedPhotoIndex(0); }} className="relative block aspect-[1.35] w-full overflow-hidden bg-[#dfe8e0] text-left focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#f4c430]" aria-label={`Ouvrir l’album ${item.title}`}>
                     <img src={item.image} alt={item.alt} className="size-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                    <div className="absolute inset-x-4 top-4 flex items-center justify-between"><span className="rounded-full bg-white/90 px-3 py-1.5 text-xs font-extrabold text-[#075b36] shadow-sm backdrop-blur-sm">{item.year}</span><span className="rounded-full bg-[#17221c]/75 px-3 py-1.5 text-xs font-bold text-white backdrop-blur-sm">{item.count}</span></div>
+                    <div className="absolute inset-x-4 top-4 flex items-center justify-between"><span className="rounded-full bg-white/90 px-3 py-1.5 text-xs font-extrabold text-[#B15C01] shadow-sm backdrop-blur-sm">{item.year}</span><span className="rounded-full bg-[#17221c]/75 px-3 py-1.5 text-xs font-bold text-white backdrop-blur-sm">{item.count}</span></div>
                     <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#17221c]/50 to-transparent" />
-                    <span className="absolute bottom-4 left-4 rounded-full bg-white/90 px-3 py-1.5 text-xs font-extrabold text-[#075b36] opacity-0 shadow-sm transition-opacity duration-200 group-hover:opacity-100 group-focus-within:opacity-100">Ouvrir</span>
+                    <span className="absolute bottom-4 left-4 rounded-full bg-white/90 px-3 py-1.5 text-xs font-extrabold text-[#B15C01] opacity-0 shadow-sm transition-opacity duration-200 group-hover:opacity-100 group-focus-within:opacity-100">Ouvrir</span>
                   </button>
                   <div className="p-6">
-                    <p className="text-[10px] font-extrabold uppercase tracking-[0.18em] text-[#009b3a]">{item.category}</p>
+                    <p className="text-[10px] font-extrabold uppercase tracking-[0.18em] text-[#B15C01]">{item.category}</p>
                     <h3 className="mt-3 text-xl font-extrabold tracking-[-0.04em] text-[#17221c]">{item.title}</h3>
                     <div className="mt-5 flex flex-wrap gap-x-4 gap-y-2 border-t border-[#edf1ed] pt-4 text-xs text-[#74877b]"><span className="inline-flex items-center gap-1.5"><CalendarDays className="size-3.5" />{item.date}</span><span className="inline-flex items-center gap-1.5"><MapPin className="size-3.5" />{item.location}</span></div>
                   </div>
@@ -174,11 +174,11 @@ export default function Gallery() {
               ))}
             </div>
           ) : (
-            <div className="mt-8 rounded-[1.5rem] border border-dashed border-[#cbd9ce] px-6 py-20 text-center"><Images className="mx-auto size-8 text-[#009b3a]" /><h3 className="mt-4 text-xl font-extrabold">Aucun album pour cette année</h3><p className="mt-2 text-sm text-[#74877b]">Les prochaines archives seront bientôt disponibles.</p></div>
+            <div className="mt-8 rounded-[1.5rem] border border-dashed border-[#cbd9ce] px-6 py-20 text-center"><Images className="mx-auto size-8 text-[#B15C01]" /><h3 className="mt-4 text-xl font-extrabold">Aucun album pour cette année</h3><p className="mt-2 text-sm text-[#74877b]">Les prochaines archives seront bientôt disponibles.</p></div>
           )}
 
           <div className="mt-16 overflow-hidden rounded-[1.5rem] bg-[#f4c430] p-7 sm:p-10">
-            <div className="grid gap-6 md:grid-cols-[1fr_auto] md:items-center"><div><p className="text-xs font-extrabold uppercase tracking-[0.18em] text-[#075b36]">Une galerie qui grandit</p><p className="mt-3 max-w-xl text-2xl font-extrabold leading-tight tracking-[-0.04em] text-[#075b36]">Vous avez des photos d’un événement à partager avec la communauté ?</p></div><a href="mailto:cestom.marrakech@gmail.com" className="inline-flex items-center justify-center gap-2 rounded-full bg-[#075b36] px-5 py-3.5 text-sm font-extrabold text-white transition-transform hover:-translate-y-0.5">Nous contacter <ArrowUpRight className="size-4" /></a></div>
+            <div className="grid gap-6 md:grid-cols-[1fr_auto] md:items-center"><div><p className="text-xs font-extrabold uppercase tracking-[0.18em] text-[#B15C01]">Une galerie qui grandit</p><p className="mt-3 max-w-xl text-2xl font-extrabold leading-tight tracking-[-0.04em] text-[#B15C01]">Vous avez des photos d’un événement à partager avec la communauté ?</p></div><a href="mailto:cestom.marrakech@gmail.com" className="inline-flex items-center justify-center gap-2 rounded-full bg-[#B15C01] px-5 py-3.5 text-sm font-extrabold text-white transition-transform hover:-translate-y-0.5">Nous contacter <ArrowUpRight className="size-4" /></a></div>
           </div>
         </section>
       </main>
@@ -192,15 +192,15 @@ export default function Gallery() {
             </div>
             <div className="relative flex max-h-[72vh] w-full items-center justify-center overflow-hidden rounded-[1.25rem] bg-black/30">
               <img src={selectedItem.photos[selectedPhotoIndex]?.imageUrl ?? selectedItem.image} alt={selectedItem.photos[selectedPhotoIndex]?.imageAlt ?? selectedItem.alt} className="max-h-[72vh] w-full object-contain" />
-              <button type="button" onClick={() => moveLightbox(-1)} className="absolute left-3 rounded-full border border-white/30 bg-[#17221c]/70 p-3 text-white backdrop-blur-sm transition-colors hover:bg-[#075b36] sm:left-5" aria-label="Photo précédente"><ChevronLeft className="size-5" /></button>
-              <button type="button" onClick={() => moveLightbox(1)} className="absolute right-3 rounded-full border border-white/30 bg-[#17221c]/70 p-3 text-white backdrop-blur-sm transition-colors hover:bg-[#075b36] sm:right-5" aria-label="Photo suivante"><ChevronRight className="size-5" /></button>
+              <button type="button" onClick={() => moveLightbox(-1)} className="absolute left-3 rounded-full border border-white/30 bg-[#17221c]/70 p-3 text-white backdrop-blur-sm transition-colors hover:bg-[#B15C01] sm:left-5" aria-label="Photo précédente"><ChevronLeft className="size-5" /></button>
+              <button type="button" onClick={() => moveLightbox(1)} className="absolute right-3 rounded-full border border-white/30 bg-[#17221c]/70 p-3 text-white backdrop-blur-sm transition-colors hover:bg-[#B15C01] sm:right-5" aria-label="Photo suivante"><ChevronRight className="size-5" /></button>
             </div>
             <div className="mt-4 flex w-full flex-wrap items-center justify-between gap-3 text-xs text-white/55"><span>{selectedItem.date} · {selectedItem.location}</span><div className="flex items-center gap-3"><span>{selectedPhotoIndex + 1} / {selectedItem.photos.length} photos</span><button type="button" onClick={() => void downloadSelectedPhoto()} disabled={downloading} className="inline-flex items-center gap-2 rounded-full border border-white/25 px-3 py-2 font-bold text-white transition-colors hover:bg-white/10 disabled:cursor-wait disabled:opacity-60" aria-label="Télécharger la photo actuelle">{downloading ? <Loader2 className="size-3.5 animate-spin" /> : <Download className="size-3.5" />}{downloading ? "Téléchargement…" : "Télécharger"}</button><span className="hidden sm:inline">Échap pour fermer</span></div></div>
           </div>
         </div>
       )}
 
-      <footer className="bg-[#17221c] py-8 text-white"><div className="section-shell flex flex-col gap-2 text-xs text-white/50 sm:flex-row sm:items-center sm:justify-between"><span>© 2025 Coordination des étudiants et stagiaires togolais au Maroc — Section Marrakech</span><span>Coordonner · Accompagner · Inspirer</span></div></footer>
+      <footer className="bg-[#8F4900] py-8 text-white"><div className="section-shell flex flex-col gap-2 text-xs text-white/85 sm:flex-row sm:items-center sm:justify-between"><span>© 2025 Coordination des étudiants et stagiaires togolais au Maroc — Section Marrakech</span><span>Coordonner · Accompagner · Inspirer</span></div></footer>
     </div>
   );
 }
