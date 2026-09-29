@@ -272,7 +272,7 @@ export default function Home() {
             <div>
               <p className="eyebrow"><span className="eyebrow-dot bg-[#d62828]" />Mémoire en images</p>
               <h2 className="section-heading mt-6 max-w-md">Les moments qui restent.</h2>
-              <p className="mt-6 max-w-md text-base leading-7 text-[#587063]">La galerie de la CESTOM sera organisée par année et par événement pour retrouver facilement les souvenirs de notre communauté.</p>
+              <p className="mt-6 max-w-md text-base leading-7 text-[#587063]">La galerie de la CESTOM est organisée par année et par événement pour retrouver facilement les souvenirs de notre communauté.</p>
               <a href="/galerie" className="mt-8 inline-flex items-center gap-2 rounded-full border border-[#cbd9ce] px-5 py-3 text-sm font-bold text-[#075b36] transition-colors hover:border-[#075b36] hover:bg-[#e6f0e9]">Voir les archives <ArrowRight className="size-4" /></a>
             </div>
             <div className="gallery-preview grid grid-cols-[1.05fr_.95fr] gap-4">
