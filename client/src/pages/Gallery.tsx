@@ -105,13 +105,13 @@ export default function Gallery() {
     <div className="min-h-screen bg-[#fbfcf9] text-[#17221c]">
       <div className="flag-line" aria-hidden="true"><span className="bg-[#009b3a]" /><span className="bg-[#f4c430]" /><span className="bg-[#d62828]" /></div>
 
-      <header className="border-b border-[#dfe8e0] bg-white pt-1">
+      <header className="border-b border-white/20 bg-[#075b36] pt-1 text-white">
         <div className="section-shell flex items-center justify-between py-5">
           <Link href="/" className="flex items-center gap-3" aria-label="Retour à l’accueil CESTOM">
-            <span className="flex h-12 w-44 items-center justify-center overflow-hidden rounded-xl bg-white px-2 py-1 shadow-sm ring-1 ring-[#e3e9e3] sm:w-56"><img src="/assets/cestom-logo.webp" alt="Logo CESTOM" className="h-full w-full object-contain" /></span>
-            <span className="hidden border-l border-[#dfe8e0] pl-3 text-[10px] font-extrabold uppercase leading-4 tracking-[0.18em] text-[#075b36] sm:block">Coordination des étudiants<br />et stagiaires togolais au Maroc<br /><span className="text-[#009b3a]">Section Marrakech</span></span>
+            <span className="flex h-14 w-52 items-center justify-center sm:w-64"><img src="/assets/cestom-logo.webp" alt="Logo CESTOM" className="h-full w-full object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.22)]" /></span>
+            <span className="hidden border-l border-white/30 pl-3 text-[10px] font-bold uppercase leading-4 tracking-[0.2em] text-white/85 sm:block">Coordination des étudiants<br />et stagiaires togolais au Maroc<br /><span className="text-[#f4c430]">Section Marrakech</span></span>
           </Link>
-          <Link href="/" className="inline-flex items-center gap-2 rounded-full border border-[#cbd9ce] px-4 py-2.5 text-xs font-extrabold uppercase tracking-[0.1em] text-[#075b36] transition-colors hover:bg-[#e6f0e9]"><ArrowLeft className="size-4" /> Retour à l’accueil</Link>
+          <Link href="/" className="inline-flex items-center gap-2 rounded-full border border-white/30 px-4 py-2.5 text-xs font-extrabold uppercase tracking-[0.1em] text-white transition-colors hover:bg-white/10"><ArrowLeft className="size-4" /> Retour à l’accueil</Link>
         </div>
       </header>
 
