@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { ArrowLeft, ArrowUpRight, CalendarDays, ChevronLeft, ChevronRight, Filter, Images, MapPin, X } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, CalendarDays, ChevronLeft, ChevronRight, Download, Filter, Images, Loader2, MapPin, X } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 import { Link } from "wouter";
 
@@ -13,32 +13,33 @@ type GalleryItem = {
   image: string;
   alt: string;
   count: string;
+  photos: Array<{ imageUrl: string; imageAlt: string }>;
 };
 
-const fallbackGalleryItems: GalleryItem[] = [
- 
-];
+const fallbackGalleryItems: GalleryItem[] = [];
 
 export default function Gallery() {
   const [selectedYear, setSelectedYear] = useState("Toutes");
   const [selectedItem, setSelectedItem] = useState<GalleryItem | null>(null);
+  const [selectedPhotoIndex, setSelectedPhotoIndex] = useState(0);
+  const [downloading, setDownloading] = useState(false);
   const albumsQuery = trpc.gallery.list.useQuery();
 
-const galleryItems = useMemo<GalleryItem[]>(() => {
-  if (!albumsQuery.data?.length) return [];
-
-  return albumsQuery.data.map((album) => ({
-    id: album.id,
-    year: album.year,
-    title: album.title,
-    category: album.category,
-    date: album.eventDate,
-    location: album.location,
-    image: album.imageUrl,
-    alt: album.imageAlt,
-    count: `${album.photoCount} photos`,
-  }));
-}, [albumsQuery.data]);
+  const galleryItems = useMemo<GalleryItem[]>(() => {
+    if (!albumsQuery.data?.length) return fallbackGalleryItems;
+    return albumsQuery.data.map((album) => ({
+      id: album.id,
+      year: album.year,
+      title: album.title,
+      category: album.category,
+      date: album.eventDate,
+      location: album.location,
+      image: album.imageUrl,
+      alt: album.imageAlt,
+      count: `${album.photoCount} photos`,
+      photos: album.photos?.length ? album.photos.map((photo) => ({ imageUrl: photo.imageUrl, imageAlt: photo.imageAlt })) : [{ imageUrl: album.imageUrl, imageAlt: album.imageAlt }],
+    }));
+  }, [albumsQuery.data]);
 
   const years = useMemo(
     () => ["Toutes", ...Array.from(new Set(galleryItems.map((item) => item.year))).sort((a, b) => b - a).map(String)],
@@ -53,10 +54,35 @@ const galleryItems = useMemo<GalleryItem[]>(() => {
   const selectedIndex = selectedItem ? filteredItems.findIndex((item) => item.title === selectedItem.title) : -1;
 
   const moveLightbox = (direction: number) => {
-    if (selectedIndex < 0) return;
-    const nextIndex = (selectedIndex + direction + filteredItems.length) % filteredItems.length;
-    setSelectedItem(filteredItems[nextIndex]);
+    if (!selectedItem || selectedItem.photos.length === 0) return;
+    setSelectedPhotoIndex((current) => (current + direction + selectedItem.photos.length) % selectedItem.photos.length);
   };
+
+  async function downloadSelectedPhoto() {
+    if (!selectedItem) return;
+    const photo = selectedItem.photos[selectedPhotoIndex];
+    if (!photo) return;
+
+    setDownloading(true);
+    try {
+      const response = await fetch(photo.imageUrl);
+      if (!response.ok) throw new Error("Téléchargement impossible");
+      const blob = await response.blob();
+      const objectUrl = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      const safeAlbum = selectedItem.title.toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "album";
+      link.href = objectUrl;
+      link.download = `${safeAlbum}-${selectedPhotoIndex + 1}.${extensionFromMime(blob.type)}`;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(objectUrl);
+    } catch {
+      window.open(photo.imageUrl, "_blank", "noopener,noreferrer");
+    } finally {
+      setDownloading(false);
+    }
+  }
 
   useEffect(() => {
     if (!selectedItem) return;
@@ -133,7 +159,7 @@ const galleryItems = useMemo<GalleryItem[]>(() => {
             <div className="mt-7 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {filteredItems.map((item) => (
                 <article key={`${item.year}-${item.title}`} className="group overflow-hidden rounded-[1.5rem] border border-[#e1e9e2] bg-white shadow-[0_12px_40px_rgba(20,68,42,0.05)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_50px_rgba(20,68,42,0.12)]">
-                  <button type="button" onClick={() => setSelectedItem(item)} className="relative block aspect-[1.35] w-full overflow-hidden bg-[#dfe8e0] text-left focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#f4c430]" aria-label={`Ouvrir l’album ${item.title}`}>
+                  <button type="button" onClick={() => { setSelectedItem(item); setSelectedPhotoIndex(0); }} className="relative block aspect-[1.35] w-full overflow-hidden bg-[#dfe8e0] text-left focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#f4c430]" aria-label={`Ouvrir l’album ${item.title}`}>
                     <img src={item.image} alt={item.alt} className="size-full object-cover transition-transform duration-700 group-hover:scale-105" />
                     <div className="absolute inset-x-4 top-4 flex items-center justify-between"><span className="rounded-full bg-white/90 px-3 py-1.5 text-xs font-extrabold text-[#075b36] shadow-sm backdrop-blur-sm">{item.year}</span><span className="rounded-full bg-[#17221c]/75 px-3 py-1.5 text-xs font-bold text-white backdrop-blur-sm">{item.count}</span></div>
                     <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#17221c]/50 to-transparent" />
@@ -158,18 +184,18 @@ const galleryItems = useMemo<GalleryItem[]>(() => {
       </main>
 
       {selectedItem && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#07150e]/95 p-4 backdrop-blur-sm sm:p-8" role="dialog" aria-modal="true" aria-label={`Album ${selectedItem.title}`} onClick={() => setSelectedItem(null)}>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#07150e]/95 p-4 backdrop-blur-sm sm:p-8" role="dialog" aria-modal="true" aria-label={`Album ${selectedItem.title}`} onClick={() => { setSelectedItem(null); setSelectedPhotoIndex(0); }}>
           <div className="relative flex max-h-full w-full max-w-6xl flex-col items-center" onClick={(event) => event.stopPropagation()}>
             <div className="mb-4 flex w-full items-center justify-between gap-4 text-white sm:mb-5">
               <div><p className="text-xs font-extrabold uppercase tracking-[0.18em] text-[#f4c430]">{selectedItem.year} · {selectedItem.category}</p><h2 className="mt-1 text-xl font-extrabold tracking-[-0.03em] sm:text-2xl">{selectedItem.title}</h2></div>
-              <button type="button" onClick={() => setSelectedItem(null)} className="rounded-full border border-white/25 p-2.5 text-white transition-colors hover:bg-white/10" aria-label="Fermer la visionneuse"><X className="size-5" /></button>
+              <button type="button" onClick={() => { setSelectedItem(null); setSelectedPhotoIndex(0); }} className="rounded-full border border-white/25 p-2.5 text-white transition-colors hover:bg-white/10" aria-label="Fermer la visionneuse"><X className="size-5" /></button>
             </div>
             <div className="relative flex max-h-[72vh] w-full items-center justify-center overflow-hidden rounded-[1.25rem] bg-black/30">
-              <img src={selectedItem.image} alt={selectedItem.alt} className="max-h-[72vh] w-full object-contain" />
+              <img src={selectedItem.photos[selectedPhotoIndex]?.imageUrl ?? selectedItem.image} alt={selectedItem.photos[selectedPhotoIndex]?.imageAlt ?? selectedItem.alt} className="max-h-[72vh] w-full object-contain" />
               <button type="button" onClick={() => moveLightbox(-1)} className="absolute left-3 rounded-full border border-white/30 bg-[#17221c]/70 p-3 text-white backdrop-blur-sm transition-colors hover:bg-[#075b36] sm:left-5" aria-label="Photo précédente"><ChevronLeft className="size-5" /></button>
               <button type="button" onClick={() => moveLightbox(1)} className="absolute right-3 rounded-full border border-white/30 bg-[#17221c]/70 p-3 text-white backdrop-blur-sm transition-colors hover:bg-[#075b36] sm:right-5" aria-label="Photo suivante"><ChevronRight className="size-5" /></button>
             </div>
-            <div className="mt-4 flex w-full items-center justify-between text-xs text-white/55"><span>{selectedItem.date} · {selectedItem.location}</span><span>{selectedIndex + 1} / {filteredItems.length} · Échap pour fermer</span></div>
+            <div className="mt-4 flex w-full flex-wrap items-center justify-between gap-3 text-xs text-white/55"><span>{selectedItem.date} · {selectedItem.location}</span><div className="flex items-center gap-3"><span>{selectedPhotoIndex + 1} / {selectedItem.photos.length} photos</span><button type="button" onClick={() => void downloadSelectedPhoto()} disabled={downloading} className="inline-flex items-center gap-2 rounded-full border border-white/25 px-3 py-2 font-bold text-white transition-colors hover:bg-white/10 disabled:cursor-wait disabled:opacity-60" aria-label="Télécharger la photo actuelle">{downloading ? <Loader2 className="size-3.5 animate-spin" /> : <Download className="size-3.5" />}{downloading ? "Téléchargement…" : "Télécharger"}</button><span className="hidden sm:inline">Échap pour fermer</span></div></div>
           </div>
         </div>
       )}
@@ -177,4 +203,11 @@ const galleryItems = useMemo<GalleryItem[]>(() => {
       <footer className="bg-[#17221c] py-8 text-white"><div className="section-shell flex flex-col gap-2 text-xs text-white/50 sm:flex-row sm:items-center sm:justify-between"><span>© 2025 Coordination des étudiants et stagiaires togolais au Maroc — Section Marrakech</span><span>Coordonner · Accompagner · Inspirer</span></div></footer>
     </div>
   );
+}
+
+function extensionFromMime(mimeType: string) {
+  if (mimeType === "image/png") return "png";
+  if (mimeType === "image/webp") return "webp";
+  if (mimeType === "image/gif") return "gif";
+  return "jpg";
 }

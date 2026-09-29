@@ -94,25 +94,36 @@ export async function getUserByOpenId(openId: string) {
   return result.length > 0 ? result[0] : undefined;
 }
 
-export async function listGalleryAlbums(): Promise<GalleryAlbum[]> {
+export async function listGalleryAlbums(): Promise<sb.GalleryAlbumWithPhotos[]> {
   if (supabaseConfigured) return sb.sbListGallery();
   const db = await getDb();
-  if (!db) return (await readLocalData()).gallery.sort((a, b) => b.year - a.year || b.id - a.id);
-  return db.select().from(galleryAlbums).orderBy(desc(galleryAlbums.year), desc(galleryAlbums.id));
+  if (!db) return (await readLocalData()).gallery.sort((a, b) => b.year - a.year || b.id - a.id).map((album) => ({ ...album, photos: [{ id: 0, albumId: album.id, imageUrl: album.imageUrl, imageAlt: album.imageAlt, sortOrder: 0, createdAt: album.createdAt }] }));
+  const albums = await db.select().from(galleryAlbums).orderBy(desc(galleryAlbums.year), desc(galleryAlbums.id));
+  return albums.map((album) => ({ ...album, photos: [{ id: 0, albumId: album.id, imageUrl: album.imageUrl, imageAlt: album.imageAlt, sortOrder: 0, createdAt: album.createdAt }] }));
 }
 
-export async function createGalleryAlbum(album: InsertGalleryAlbum): Promise<void> {
+export async function createGalleryAlbum(album: any): Promise<number | void> {
   if (supabaseConfigured) return sb.sbCreateGallery(album);
   const db = await getDb();
-  if (!db) { await withLocalData(data => { data.gallery.push({ ...album, id: localId(), createdAt: new Date(), updatedAt: new Date() } as GalleryAlbum); }); return; }
-  await db.insert(galleryAlbums).values(album);
+  const photos = Array.isArray(album.photos) ? album.photos : [{ imageUrl: album.imageUrl, imageAlt: album.imageAlt }];
+  const cover = photos[0];
+  if (!cover) throw new Error("Un album doit contenir au moins une photo.");
+  const record = { ...album, imageUrl: cover.imageUrl, imageAlt: cover.imageAlt, photoCount: photos.length };
+  delete record.photos;
+  if (!db) { const id = localId(); await withLocalData(data => { data.gallery.push({ ...record, id, createdAt: new Date(), updatedAt: new Date() } as GalleryAlbum); }); return id; }
+  await db.insert(galleryAlbums).values(record);
 }
 
-export async function updateGalleryAlbum(id: number, album: Partial<InsertGalleryAlbum>): Promise<void> {
+export async function updateGalleryAlbum(id: number, album: any): Promise<void> {
   if (supabaseConfigured) return sb.sbUpdateGallery(id, album);
   const db = await getDb();
-  if (!db) { await withLocalData(data => { const item = data.gallery.find(x => x.id === id); if (item) Object.assign(item, album, { updatedAt: new Date() }); }); return; }
-  await db.update(galleryAlbums).set(album).where(eq(galleryAlbums.id, id));
+  const photos = Array.isArray(album.photos) ? album.photos : [{ imageUrl: album.imageUrl, imageAlt: album.imageAlt }];
+  const cover = photos[0];
+  if (!cover) throw new Error("Un album doit contenir au moins une photo.");
+  const record = { ...album, imageUrl: cover.imageUrl, imageAlt: cover.imageAlt, photoCount: photos.length };
+  delete record.photos;
+  if (!db) { await withLocalData(data => { const item = data.gallery.find(x => x.id === id); if (item) Object.assign(item, record, { updatedAt: new Date() }); }); return; }
+  await db.update(galleryAlbums).set(record).where(eq(galleryAlbums.id, id));
 }
 
 export async function deleteGalleryAlbum(id: number): Promise<void> {

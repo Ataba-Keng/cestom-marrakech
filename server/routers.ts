@@ -12,9 +12,10 @@ const galleryAlbumInput = z.object({
   category: z.string().trim().min(2).max(120),
   eventDate: z.string().trim().min(2).max(80),
   location: z.string().trim().min(2).max(120),
-  imageUrl: z.string().trim().url().or(z.string().trim().startsWith("/manus-storage/")),
-  imageAlt: z.string().trim().min(2).max(255),
-  photoCount: z.number().int().min(0).max(10000),
+  photos: z.array(z.object({
+    imageUrl: z.string().trim().min(1).max(2000),
+    imageAlt: z.string().trim().min(2).max(255),
+  })).min(1, "Ajoutez au moins une photo.").max(100),
 });
 
 const newsPostInput = z.object({
