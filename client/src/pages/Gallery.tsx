@@ -111,7 +111,7 @@ export default function Gallery() {
             <span className="flex h-14 w-52 items-center justify-center sm:w-64"><img src="/assets/cestom-logo.webp" alt="Logo CESTOM" className="h-full w-full object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.22)]" /></span>
             <span className="hidden border-l border-white/30 pl-3 text-[10px] font-bold uppercase leading-4 tracking-[0.2em] text-white/85 sm:block">Coordination des étudiants<br />et stagiaires togolais au Maroc<br /><span className="text-[#f4c430]">Section Marrakech</span></span>
           </Link>
-          <Link href="/" className="inline-flex items-center gap-2 rounded-full border border-white/30 px-4 py-2.5 text-xs font-extrabold uppercase tracking-[0.1em] text-white transition-colors hover:bg-white/10"><ArrowLeft className="size-4" /> Retour à l’accueil</Link>
+          <Link href="/" className="inline-flex items-center gap-2 rounded-full border border-white/30 px-4 py-2.5 text-xs font-extrabold uppercase tracking-[0.1em] text-white transition-colors hover:bg-white/10"><ArrowLeft className="size-4" />accueil</Link>
         </div>
       </header>
 
