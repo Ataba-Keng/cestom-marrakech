@@ -22,21 +22,21 @@ const logo = "/assets/cestom-logo.webp";
 
 const slides = [
   {
-    image: "/manus-storage/LU1CVwYAJmGp_48941b97.jpeg",
+    image: "/assets/galerie-acceuil.jpg",
     eyebrow: "CESTOM · SECTION MARRAKECH · 2025",
     title: "Une communauté qui avance ensemble.",
     copy: "Créer des liens, accompagner les parcours et faire rayonner la présence togolaise au Maroc.",
     location: "Marrakech, Maroc",
   },
   {
-    image: "/manus-storage/fvK2qo0Jxk2N_f0c8e1fa.jpeg",
+    image: "/assets/galerie-acceuil2.png",
     eyebrow: "CULTURE · RENCONTRES · PARTAGE",
     title: "Nos histoires se rencontrent ici.",
     copy: "Des moments de découverte et d’échange pour faire vivre une communauté étudiante solidaire.",
     location: "Une antenne, des horizons",
   },
   {
-    image: "/manus-storage/kDkBjFbOdFqt_446ed9a2.jpg",
+    image: "/assets/galerie-acceuil.jpg",
     eyebrow: "ENGAGEMENT ÉTUDIANT",
     title: "Marrakech est notre point de départ.",
     copy: "Un espace pour apprendre, s’entraider et construire les prochains chapitres de notre aventure.",
@@ -105,13 +105,13 @@ export default function Home() {
                 <img src={logo} alt="Logo CESTOM" className="h-full w-full object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.22)]" />
               </span>
               <span className="hidden border-l border-white/30 pl-3 text-[10px] font-bold uppercase leading-4 tracking-[0.2em] text-white/85 sm:block">
-                Coordination des Etudiants et<br />
-                Stagiaires Togolais au Maroc<br />
+                Coordination des étudiants et<br />
+                stagiaires togolais au Maroc<br />
                 <span className="text-[#f4c430]">Section Marrakech</span>
               </span>
             </a>
 
-            <nav className="hidden items-center gap-8 lg:flex" aria-label="Navigation principale">
+            <nav className="ml-auto hidden shrink-0 items-center gap-7 lg:flex xl:gap-8" aria-label="Navigation principale">
               <a className="nav-link nav-link-active" href="#accueil">Accueil</a>
               <a className="nav-link" href="#association">À propos</a>
               <a className="nav-link" href="#activites">Activités</a>
@@ -120,7 +120,7 @@ export default function Home() {
               <a className="nav-link" href="/galerie">Galerie</a>
             </nav>
 
-            <a href="#contact" className="hidden items-center gap-2 rounded-full bg-[#f4c430] px-5 py-3 text-xs font-extrabold uppercase tracking-[0.12em] text-[#17221c] transition-transform duration-200 hover:-translate-y-0.5 active:scale-[0.97] md:flex">
+            <a href="#contact" className="ml-8 hidden shrink-0 items-center gap-2 rounded-full bg-[#f4c430] px-5 py-3 text-xs font-extrabold uppercase tracking-[0.12em] text-[#17221c] transition-transform duration-200 hover:-translate-y-0.5 active:scale-[0.97] md:flex">
               Nous rejoindre <ArrowUpRight className="size-4" />
             </a>
 
@@ -221,7 +221,7 @@ export default function Home() {
               <h2 className="section-heading mt-6 max-w-md">Faire de chaque parcours une force collective.</h2>
               <div className="mt-8 flex items-start gap-4 border-l-2 border-[#f4c430] pl-5 text-sm leading-6 text-[#587063]">
                 <Quote className="mt-1 size-5 shrink-0 text-[#009b3a]" />
-                <p>La Coordination des Etudiants et Stagiaires Togolais au Maroc — Section Marrakech est un espace de repères, de solidarité et d’ambition pour les étudiants et stagiaires togolais au Maroc.</p>
+                <p>La Coordination des étudiants et stagiaires togolais au Maroc — Section Marrakech est un espace de repères, de solidarité et d’ambition pour les étudiants et stagiaires togolais au Maroc.</p>
               </div>
             </div>
             <div className="max-w-xl lg:pt-8">
@@ -272,7 +272,7 @@ export default function Home() {
             <div>
               <p className="eyebrow"><span className="eyebrow-dot bg-[#d62828]" />Mémoire en images</p>
               <h2 className="section-heading mt-6 max-w-md">Les moments qui restent.</h2>
-              <p className="mt-6 max-w-md text-base leading-7 text-[#587063]">La galerie de la CESTOM est organisée par année et par événement pour retrouver facilement les souvenirs de notre communauté.</p>
+              <p className="mt-6 max-w-md text-base leading-7 text-[#587063]">La galerie de la CESTOM sera organisée par année et par événement pour retrouver facilement les souvenirs de notre communauté.</p>
               <a href="/galerie" className="mt-8 inline-flex items-center gap-2 rounded-full border border-[#cbd9ce] px-5 py-3 text-sm font-bold text-[#075b36] transition-colors hover:border-[#075b36] hover:bg-[#e6f0e9]">Voir les archives <ArrowRight className="size-4" /></a>
             </div>
             <div className="gallery-preview grid grid-cols-[1.05fr_.95fr] gap-4">
@@ -306,7 +306,7 @@ export default function Home() {
         <div className="section-shell flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
           <div className="flex items-center gap-3">
             <span className="flex h-12 w-44 items-center justify-center"><img src={logo} alt="Logo CESTOM" className="h-full w-full object-contain drop-shadow-[0_3px_6px_rgba(0,0,0,0.35)]" /></span>
-            <div><p className="max-w-xs text-sm font-extrabold">Coordination des Etudiants et Stagiaires Togolais au Maroc — Section Marrakech</p><p className="mt-1 text-xs text-white/45">Coordonner · Accompagner · Inspirer</p></div>
+            <div><p className="max-w-xs text-sm font-extrabold">Coordination des étudiants et stagiaires togolais au Maroc — Section Marrakech</p><p className="mt-1 text-xs text-white/45">Coordonner · Accompagner · Inspirer</p></div>
           </div>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-xs text-white/55">
             <span className="inline-flex items-center gap-2"><MapPin className="size-3.5 text-[#f4c430]" /> Marrakech, Maroc</span>
@@ -314,7 +314,7 @@ export default function Home() {
             <span className="flex items-center gap-3 border-l border-white/15 pl-5"><a href="https://www.facebook.com/CestomMarrakech/" target="_blank" rel="noreferrer" aria-label="Facebook CESTOM Marrakech"><Facebook className="size-4" /></a><a href="https://www.instagram.com/cestom.marrakech/" target="_blank" rel="noreferrer" aria-label="Instagram CESTOM Marrakech"><Instagram className="size-4" /></a></span>
           </div>
         </div>
-        <div className="section-shell mt-8 border-t border-white/10 pt-5 text-[11px] text-white/35">© 2026 Coordination des étudiants et stagiaires togolais au Maroc — Section Marrakech · </div>
+        <div className="section-shell mt-8 border-t border-white/10 pt-5 text-[11px] text-white/35">© {new Date().getFullYear()} Coordination des étudiants et stagiaires togolais au Maroc — Section Marrakech</div>
       </footer>
     </div>
   );
