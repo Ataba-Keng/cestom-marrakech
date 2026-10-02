@@ -23,7 +23,7 @@ const logo = "/assets/cestom-logo-white.png";
 const slides = [
   {
     image: "/assets/galerie-acceuil.jpg",
-    eyebrow: "CESTOM · SECTION MARRAKECH · 2025",
+    eyebrow: "CESTOM · SECTION MARRAKECH · 2026",
     title: "Une communauté qui avance ensemble.",
     copy: "Créer des liens, accompagner les parcours et faire rayonner la présence togolaise au Maroc.",
     location: "Marrakech, Maroc",
