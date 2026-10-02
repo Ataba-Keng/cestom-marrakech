@@ -3,4 +3,4 @@ Allow: /
 Disallow: /admin
 Disallow: /api/
 
-Sitemap: https://cestom-marrakech.duckdns.org/sitemap.xml
+Sitemap: https://cestom-marrakech.org/sitemap.xml
