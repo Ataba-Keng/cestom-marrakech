@@ -18,7 +18,7 @@ import {
   X,
 } from "lucide-react";
 
-const logo = "/assets/cestom-logo.webp";
+const logo = "/assets/cestom-logo-white.png";
 
 const slides = [
   {
@@ -312,7 +312,7 @@ export default function Home() {
           <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-xs text-white/85">
             <span className="inline-flex items-center gap-2"><MapPin className="size-3.5 text-[#f4c430]" /> Marrakech, Maroc</span>
             <a href="mailto:cestom.marrakech@gmail.com" className="inline-flex items-center gap-2 transition-colors hover:text-white"><Mail className="size-3.5 text-[#f4c430]" /> cestom.marrakech@gmail.com</a>
-            <span className="flex items-center gap-3 border-l border-white/15 pl-5"><a href="https://www.facebook.com/CestomMarrakech/" target="_blank" rel="noreferrer" aria-label="Facebook CESTOM Marrakech"><Facebook className="size-4" /></a><a href="https://www.instagram.com/cestom.marrakech/" target="_blank" rel="noreferrer" aria-label="Instagram CESTOM Marrakech"><Instagram className="size-4" /></a></span>
+            <span className="flex items-center gap-3 border-l border-white/15 pl-5"><a href="https://www.facebook.com/CestomMarrakech/" target="_blank" rel="noreferrer" aria-label="Facebook CESTOM Marrakech"><Facebook className="size-4" /></a><a href="https://www.instagram.com/cestom__marrakech?stkn=bHRoemJsNTJyYTYy" target="_blank" rel="noreferrer" aria-label="Instagram CESTOM Marrakech"><Instagram className="size-4" /></a></span>
           </div>
         </div>
         <div className="section-shell mt-8 border-t border-white/25 pt-5 text-[11px] text-white/65">© {new Date().getFullYear()} Coordination des étudiants et stagiaires togolais au Maroc — Section Marrakech</div>

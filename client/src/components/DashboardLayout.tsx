@@ -174,7 +174,7 @@ function DashboardLayoutContent({
               </button>
               {!isCollapsed ? (
                 <div className="flex items-center gap-2 min-w-0">
-                  <img src="/assets/cestom-logo.webp" alt="Logo CESTOM" className="h-8 w-28 rounded-md bg-white px-1 object-contain" />
+                  <img src="/assets/cestom-logo-white.png" alt="Logo CESTOM" className="h-8 w-28 rounded-md bg-[#17221c] px-1 object-contain" />
                   <span className="sr-only">
                     Navigation
                   </span>
