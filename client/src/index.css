@@ -25,7 +25,7 @@
   --foreground: #17221c;
   --card: #ffffff;
   --card-foreground: #17221c;
-  --primary: #075b36;
+  --primary: #B15C01;
   --primary-foreground: #ffffff;
   --muted: #f1f5f1;
   --muted-foreground: #587063;
@@ -93,7 +93,7 @@ a {
   display: inline-flex;
   align-items: center;
   gap: 0.65rem;
-  color: #009b3a;
+  color: #B15C01;
   font-size: 0.68rem;
   font-weight: 800;
   letter-spacing: 0.21em;
@@ -110,7 +110,7 @@ a {
   width: 0.55rem;
   height: 0.55rem;
   border-radius: 999px;
-  background: #009b3a;
+  background: #B15C01;
 }
 
 .section-heading {
@@ -171,7 +171,7 @@ a {
 }
 
 .activity-icon-green {
-  background: #009b3a;
+  background: #B15C01;
   color: #fff;
 }
 
@@ -192,7 +192,7 @@ a {
   width: 2.5rem;
   height: 3px;
   border-radius: 999px;
-  background: #f4c430;
+  background: #009b3a;
   content: "";
 }
 
