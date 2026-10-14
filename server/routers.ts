@@ -1,5 +1,5 @@
 import { COOKIE_NAME } from "@shared/const";
-import { addLocalAdmin, createBoardMember, createGalleryAlbum, createNewsPost, deleteBoardMember, deleteGalleryAlbum, deleteNewsPost, getNewsPost, listBoardMembers, listGalleryAlbums, listLocalAdmins, listNewsPosts, removeLocalAdmin, updateBoardMember, updateGalleryAlbum, updateNewsPost } from "./db";
+import { addLocalAdmin, createBoardMember, createCommunityService, createGalleryAlbum, createNewsPost, deleteBoardMember, deleteCommunityService, deleteGalleryAlbum, deleteNewsPost, getNewsPost, listBoardMembers, listCommunityServices, listGalleryAlbums, listLocalAdmins, listNewsPosts, removeLocalAdmin, updateBoardMember, updateCommunityService, updateGalleryAlbum, updateNewsPost } from "./db";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { adminProcedure, publicProcedure, router } from "./_core/trpc";
@@ -26,6 +26,8 @@ const newsPostInput = z.object({
   publishedAt: z.string().trim().min(2).max(80),
   imageUrl: z.string().trim().max(2000),
   status: z.enum(["draft", "published"]),
+  suggestionEnabled: z.boolean(),
+  suggestionFormUrl: z.union([z.string().url().max(2000), z.literal("")]),
 });
 
 const boardMemberInput = z.object({
@@ -33,6 +35,20 @@ const boardMemberInput = z.object({
   role: z.string().trim().min(2).max(160),
   bio: z.string().trim().min(2).max(2000),
   imageUrl: z.string().trim().max(2000),
+  sortOrder: z.number().int().min(0).max(999),
+  active: z.number().int().min(0).max(1),
+});
+
+const communityServiceInput = z.object({
+  name: z.string().trim().min(2).max(160),
+  businessName: z.string().trim().max(180),
+  category: z.string().trim().min(2).max(120),
+  description: z.string().trim().min(10).max(2500),
+  imageUrl: z.string().trim().max(2000),
+  phone: z.string().trim().max(40),
+  whatsapp: z.number().int().min(0).max(1),
+  facebookUrl: z.union([z.string().url().max(2000), z.literal("")]),
+  instagramUrl: z.union([z.string().url().max(2000), z.literal("")]),
   sortOrder: z.number().int().min(0).max(999),
   active: z.number().int().min(0).max(1),
 });
@@ -83,10 +99,10 @@ export const appRouter = router({
     list: publicProcedure.query(() => listNewsPosts(false)),
     byId: publicProcedure.input(z.object({ id: z.number().int().positive() })).query(({ input }) => getNewsPost(input.id, false)),
     adminList: adminProcedure.query(() => listNewsPosts(true)),
-    create: adminProcedure.input(newsPostInput).mutation(({ input }) => createNewsPost(input)),
+    create: adminProcedure.input(newsPostInput).mutation(({ input }) => createNewsPost({ ...input, suggestionEnabled: input.suggestionEnabled ? 1 : 0 })),
     update: adminProcedure.input(newsPostInput.extend({ id: z.number().int().positive() })).mutation(({ input }) => {
       const { id, ...post } = input;
-      return updateNewsPost(id, post);
+      return updateNewsPost(id, { ...post, suggestionEnabled: post.suggestionEnabled ? 1 : 0 });
     }),
     remove: adminProcedure.input(z.object({ id: z.number().int().positive() })).mutation(({ input }) => deleteNewsPost(input.id)),
   }),
@@ -99,6 +115,16 @@ export const appRouter = router({
       return updateBoardMember(id, member);
     }),
     remove: adminProcedure.input(z.object({ id: z.number().int().positive() })).mutation(({ input }) => deleteBoardMember(input.id)),
+  }),
+  talents: router({
+    list: publicProcedure.query(() => listCommunityServices(false)),
+    adminList: adminProcedure.query(() => listCommunityServices(true)),
+    create: adminProcedure.input(communityServiceInput).mutation(({ input }) => createCommunityService(input)),
+    update: adminProcedure.input(communityServiceInput.extend({ id: z.number().int().positive() })).mutation(({ input }) => {
+      const { id, ...service } = input;
+      return updateCommunityService(id, service);
+    }),
+    remove: adminProcedure.input(z.object({ id: z.number().int().positive() })).mutation(({ input }) => deleteCommunityService(input.id)),
   }),
 });
 

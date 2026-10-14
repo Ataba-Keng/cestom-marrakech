@@ -51,6 +51,8 @@ export const newsPosts = mysqlTable("news_posts", {
   publishedAt: varchar("publishedAt", { length: 80 }).notNull(),
   imageUrl: text("imageUrl").notNull().default(""),
   status: mysqlEnum("status", ["draft", "published"]).default("draft").notNull(),
+  suggestionEnabled: int("suggestionEnabled").default(0).notNull(),
+  suggestionFormUrl: text("suggestionFormUrl").notNull().default(""),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });
@@ -72,3 +74,21 @@ export const boardMembers = mysqlTable("board_members", {
 
 export type BoardMember = typeof boardMembers.$inferSelect;
 export type InsertBoardMember = typeof boardMembers.$inferInsert;
+export const communityServices = mysqlTable("community_services", {
+  id: int("id").autoincrement().primaryKey(),
+  name: varchar("name", { length: 160 }).notNull(),
+  businessName: varchar("businessName", { length: 180 }).notNull().default(""),
+  category: varchar("category", { length: 120 }).notNull(),
+  description: text("description").notNull(),
+  imageUrl: text("imageUrl").notNull().default(""),
+  phone: varchar("phone", { length: 40 }).notNull().default(""),
+  whatsapp: int("whatsapp").default(0).notNull(),
+  facebookUrl: text("facebookUrl").notNull().default(""),
+  instagramUrl: text("instagramUrl").notNull().default(""),
+  sortOrder: int("sortOrder").default(0).notNull(),
+  active: int("active").default(1).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+export type CommunityService = typeof communityServices.$inferSelect;
+export type InsertCommunityService = typeof communityServices.$inferInsert;

@@ -1,13 +1,13 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { randomUUID } from "node:crypto";
-import type { BoardMember, GalleryAlbum, NewsPost } from "../drizzle/schema";
+import type { BoardMember, CommunityService, GalleryAlbum, NewsPost } from "../drizzle/schema";
 
 type LocalAdmin = { id: string; openId: string; name: string; email: string; role: "admin"; createdAt: string };
-type LocalData = { gallery: GalleryAlbum[]; news: NewsPost[]; board: BoardMember[]; admins: LocalAdmin[] };
+type LocalData = { gallery: GalleryAlbum[]; news: NewsPost[]; board: BoardMember[]; communityServices: CommunityService[]; admins: LocalAdmin[] };
 
 const filePath = path.resolve(process.env.CESTOM_DATA_DIR ?? path.join(process.cwd(), "data"), "cestom.json");
-const emptyData: LocalData = { gallery: [], news: [], board: [], admins: [] };
+const emptyData: LocalData = { gallery: [], news: [], board: [], communityServices: [], admins: [] };
 let queue = Promise.resolve();
 
 async function load(): Promise<LocalData> {
