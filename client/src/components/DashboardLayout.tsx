@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/sidebar";
 import { startLogin } from "@/const";
 import { useIsMobile } from "@/hooks/useMobile";
-import { Images, LayoutDashboard, LogOut, Newspaper, PanelLeft, ShieldCheck, Users } from "lucide-react";
+import { BriefcaseBusiness, Images, LayoutDashboard, LogOut, Newspaper, PanelLeft, ShieldCheck, Users } from "lucide-react";
 import { CSSProperties, useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
 import { DashboardLayoutSkeleton } from './DashboardLayoutSkeleton';
@@ -33,6 +33,7 @@ const menuItems = [
   { icon: Images, label: "Galerie", path: "/admin/galerie" },
   { icon: Newspaper, label: "Actualités", path: "/admin/actualites" },
   { icon: Users, label: "Bureau exécutif", path: "/admin/bureau" },
+  { icon: BriefcaseBusiness, label: "Talents & services", path: "/admin/talents" },
   { icon: ShieldCheck, label: "Administrateurs", path: "/admin/administrateurs" },
   { icon: Images, label: "Voir le site", path: "/galerie" },
 ];

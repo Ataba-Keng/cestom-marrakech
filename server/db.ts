@@ -1,6 +1,6 @@
 import { asc, desc, eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { BoardMember, GalleryAlbum, InsertBoardMember, InsertGalleryAlbum, InsertNewsPost, InsertUser, NewsPost, boardMembers, galleryAlbums, newsPosts, users } from "../drizzle/schema";
+import { BoardMember, CommunityService, GalleryAlbum, InsertBoardMember, InsertCommunityService, InsertGalleryAlbum, InsertNewsPost, InsertUser, NewsPost, boardMembers, communityServices, galleryAlbums, newsPosts, users } from "../drizzle/schema";
 import { ENV } from './_core/env';
 import { localId, readLocalData, withLocalData, type LocalAdmin } from './localStore';
 import { supabaseConfigured } from "./supabase";
@@ -136,7 +136,7 @@ export async function deleteGalleryAlbum(id: number): Promise<void> {
 export async function listNewsPosts(includeDrafts = false): Promise<NewsPost[]> {
   if (supabaseConfigured) return sb.sbListNews(includeDrafts);
   const db = await getDb();
-  if (!db) { const posts = (await readLocalData()).news.filter(post => includeDrafts || post.status === "published"); return posts.sort((a, b) => b.id - a.id); }
+  if (!db) { const posts = (await readLocalData()).news.filter(post => includeDrafts || post.status === "published").map(post => ({ ...post, suggestionEnabled: post.suggestionEnabled ?? 0, suggestionFormUrl: post.suggestionFormUrl ?? "" })); return posts.sort((a, b) => b.id - a.id); }
   const query = db.select().from(newsPosts);
   if (!includeDrafts) return query.where(eq(newsPosts.status, "published")).orderBy(desc(newsPosts.id));
   return query.orderBy(desc(newsPosts.id));
@@ -145,7 +145,7 @@ export async function listNewsPosts(includeDrafts = false): Promise<NewsPost[]> 
 export async function getNewsPost(id: number, includeDrafts = false): Promise<NewsPost | undefined> {
   if (supabaseConfigured) return sb.sbGetNews(id, includeDrafts);
   const db = await getDb();
-  if (!db) { const post = (await readLocalData()).news.find(x => x.id === id); return post && (includeDrafts || post.status === "published") ? post : undefined; }
+  if (!db) { const post = (await readLocalData()).news.find(x => x.id === id); return post && (includeDrafts || post.status === "published") ? { ...post, suggestionEnabled: post.suggestionEnabled ?? 0, suggestionFormUrl: post.suggestionFormUrl ?? "" } : undefined; }
   const result = await db.select().from(newsPosts).where(eq(newsPosts.id, id)).limit(1);
   if (!result[0] || (!includeDrafts && result[0].status !== "published")) return undefined;
   return result[0];
@@ -200,6 +200,39 @@ export async function deleteBoardMember(id: number): Promise<void> {
   const db = await getDb();
   if (!db) { await withLocalData(data => { data.board = data.board.filter(x => x.id !== id); }); return; }
   await db.delete(boardMembers).where(eq(boardMembers.id, id));
+}
+
+export async function listCommunityServices(includeInactive = false): Promise<CommunityService[]> {
+  if (supabaseConfigured) return sb.sbListCommunityServices(includeInactive);
+  const db = await getDb();
+  if (!db) {
+    const services = (await readLocalData()).communityServices.filter(service => includeInactive || service.active === 1);
+    return services.sort((a, b) => a.sortOrder - b.sortOrder || a.id - b.id);
+  }
+  const query = db.select().from(communityServices);
+  if (!includeInactive) return query.where(eq(communityServices.active, 1)).orderBy(asc(communityServices.sortOrder), asc(communityServices.id));
+  return query.orderBy(asc(communityServices.sortOrder), asc(communityServices.id));
+}
+
+export async function createCommunityService(service: InsertCommunityService): Promise<void> {
+  if (supabaseConfigured) return sb.sbCreateCommunityService(service);
+  const db = await getDb();
+  if (!db) { await withLocalData(data => { data.communityServices.push({ ...service, id: localId(), createdAt: new Date(), updatedAt: new Date() } as CommunityService); }); return; }
+  await db.insert(communityServices).values(service);
+}
+
+export async function updateCommunityService(id: number, service: Partial<InsertCommunityService>): Promise<void> {
+  if (supabaseConfigured) return sb.sbUpdateCommunityService(id, service);
+  const db = await getDb();
+  if (!db) { await withLocalData(data => { const item = data.communityServices.find(x => x.id === id); if (item) Object.assign(item, service, { updatedAt: new Date() }); }); return; }
+  await db.update(communityServices).set(service).where(eq(communityServices.id, id));
+}
+
+export async function deleteCommunityService(id: number): Promise<void> {
+  if (supabaseConfigured) return sb.sbDeleteCommunityService(id);
+  const db = await getDb();
+  if (!db) { await withLocalData(data => { data.communityServices = data.communityServices.filter(x => x.id !== id); }); return; }
+  await db.delete(communityServices).where(eq(communityServices.id, id));
 }
 
 

@@ -23,7 +23,7 @@ const logo = "/assets/cestom-logo-white.png";
 const slides = [
   {
     image: "/assets/galerie-acceuil.jpg",
-    eyebrow: "CESTOM · SECTION MARRAKECH · 2026",
+    eyebrow: "CESTOM · SECTION MARRAKECH · 2025",
     title: "Une communauté qui avance ensemble.",
     copy: "Créer des liens, accompagner les parcours et faire rayonner la présence togolaise au Maroc.",
     location: "Marrakech, Maroc",
@@ -98,29 +98,30 @@ export default function Home() {
       </div>
 
       <header className="absolute inset-x-0 top-1 z-30 text-white">
-        <div className="section-shell">
-          <div className="flex items-center justify-between border-b border-white/20 py-5">
-            <a href="#accueil" className="flex items-center gap-3" aria-label="Coordination des étudiants et stagiaires togolais au Maroc — Section Marrakech, accueil">
-              <span className="flex h-14 w-52 items-center justify-center sm:w-64">
+        <div className="mx-auto w-[calc(100%-1.25rem)] max-w-[1440px]">
+          <div className="flex items-center gap-2 border-b border-white/20 py-5">
+            <a href="#accueil" className="flex items-center gap-2" aria-label="Coordination des étudiants et stagiaires togolais au Maroc — Section Marrakech, accueil">
+              <span className="flex h-10 w-32 items-center justify-center sm:w-40">
                 <img src={logo} alt="Logo CESTOM" className="h-full w-full object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.22)]" />
               </span>
-              <span className="hidden border-l border-white/30 pl-3 text-[10px] font-bold uppercase leading-4 tracking-[0.2em] text-white/85 sm:block">
+              <span className="hidden w-[145px] shrink-0 border-l border-white/30 pl-2 text-[8px] font-bold uppercase leading-[1.35] tracking-[0.12em] text-white/85 lg:block">
                 Coordination des étudiants et<br />
                 stagiaires togolais au Maroc<br />
                 <span className="text-[#f4c430]">Section Marrakech</span>
               </span>
             </a>
 
-            <nav className="ml-auto hidden shrink-0 items-center gap-6 lg:flex xl:gap-7" aria-label="Navigation principale">
-              <a className="nav-link nav-link-active" href="#accueil">Accueil</a>
-              <a className="nav-link" href="#association">À propos</a>
-              <a className="nav-link" href="#activites">Activités</a>
-              <a className="nav-link" href="/actualites">Actualités</a>
-              <a className="nav-link" href="/bureau-executif">Bureau exécutif</a>
-              <a className="nav-link" href="/galerie">Galerie</a>
+            <nav className="ml-auto hidden min-w-0 shrink items-center gap-3 lg:flex 2xl:gap-4" aria-label="Navigation principale">
+              <a className="nav-link whitespace-nowrap text-[0.68rem]" href="#accueil">Accueil</a>
+              <a className="nav-link whitespace-nowrap text-[0.68rem]" href="#association">À propos</a>
+              <a className="nav-link whitespace-nowrap text-[0.68rem]" href="#activites">Activités</a>
+              <a className="nav-link whitespace-nowrap text-[0.68rem]" href="/actualites">Actualités</a>
+              <a className="nav-link whitespace-nowrap text-[0.68rem]" href="/bureau-executif">Bureau exécutif</a>
+              <a className="nav-link whitespace-nowrap text-[0.68rem]" href="/talents">Talents & services</a>
+              <a className="nav-link whitespace-nowrap text-[0.68rem]" href="/galerie">Galerie</a>
             </nav>
 
-            <a href="#contact" className="ml-3 hidden shrink-0 items-center gap-2 rounded-full bg-[#f4c430] px-5 py-3 text-xs font-extrabold uppercase tracking-[0.12em] text-[#17221c] transition-transform duration-200 hover:-translate-y-0.5 active:scale-[0.97] md:flex">
+            <a href="#contact" className="ml-1 hidden shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full bg-[#f4c430] px-3 py-2.5 text-[0.68rem] font-extrabold uppercase tracking-[0.08em] text-[#17221c] transition-transform duration-200 hover:-translate-y-0.5 active:scale-[0.97] md:flex">
               Nous rejoindre <ArrowUpRight className="size-4" />
             </a>
 
@@ -142,6 +143,7 @@ export default function Home() {
                 ["Activités", "#activites"],
                 ["Actualités", "/actualites"],
                 ["Bureau exécutif", "/bureau-executif"],
+                ["Talents & services", "/talents"],
                 ["Galerie", "/galerie"],
                 ["Nous rejoindre", "#contact"],
               ].map(([label, href]) => (
@@ -312,7 +314,7 @@ export default function Home() {
           <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-xs text-white/85">
             <span className="inline-flex items-center gap-2"><MapPin className="size-3.5 text-[#f4c430]" /> Marrakech, Maroc</span>
             <a href="mailto:cestom.marrakech@gmail.com" className="inline-flex items-center gap-2 transition-colors hover:text-white"><Mail className="size-3.5 text-[#f4c430]" /> cestom.marrakech@gmail.com</a>
-            <span className="flex items-center gap-3 border-l border-white/15 pl-5"><a href="https://www.facebook.com/CestomMarrakech/" target="_blank" rel="noreferrer" aria-label="Facebook CESTOM Marrakech"><Facebook className="size-4" /></a><a href="https://www.instagram.com/cestom__marrakech?stkn=bHRoemJsNTJyYTYy" target="_blank" rel="noreferrer" aria-label="Instagram CESTOM Marrakech"><Instagram className="size-4" /></a></span>
+            <span className="flex items-center gap-3 border-l border-white/15 pl-5"><a href="https://www.facebook.com/CestomMarrakech/" target="_blank" rel="noreferrer" aria-label="Facebook CESTOM Marrakech"><Facebook className="size-4" /></a><a href="https://www.instagram.com/cestom.marrakech/" target="_blank" rel="noreferrer" aria-label="Instagram CESTOM Marrakech"><Instagram className="size-4" /></a></span>
           </div>
         </div>
         <div className="section-shell mt-8 border-t border-white/25 pt-5 text-[11px] text-white/65">© {new Date().getFullYear()} Coordination des étudiants et stagiaires togolais au Maroc — Section Marrakech</div>

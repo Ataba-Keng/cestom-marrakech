@@ -1,5 +1,5 @@
 import { supabaseAdmin } from "./supabase";
-import type { BoardMember, GalleryAlbum, NewsPost } from "../drizzle/schema";
+import type { BoardMember, CommunityService, GalleryAlbum, NewsPost } from "../drizzle/schema";
 
 export type GalleryPhotoRecord = {
   id: number;
@@ -185,11 +185,11 @@ export async function sbDeleteGallery(id: number) {
 
 export async function sbListNews(includeDrafts: boolean): Promise<NewsPost[]> { let query = client().from("news_posts").select("*").order("id", { ascending: false }); if (!includeDrafts) query = query.eq("status", "published"); const { data, error } = await query; fail(error); return (data ?? []).map(mapNews); }
 export async function sbGetNews(id: number, includeDrafts: boolean) { const { data, error } = await client().from("news_posts").select("*").eq("id", id).maybeSingle(); fail(error); if (!data || (!includeDrafts && data.status !== "published")) return undefined; return mapNews(data); }
-export async function sbCreateNews(input: any) { const { error } = await client().from("news_posts").insert({ title: input.title, excerpt: input.excerpt, content: input.content, category: input.category, published_at: input.publishedAt, image_url: input.imageUrl, status: input.status }); fail(error); }
-export async function sbUpdateNews(id: number, input: any) { const { error } = await client().from("news_posts").update({ title: input.title, excerpt: input.excerpt, content: input.content, category: input.category, published_at: input.publishedAt, image_url: input.imageUrl, status: input.status }).eq("id", id); fail(error); }
+export async function sbCreateNews(input: any) { const { error } = await client().from("news_posts").insert({ title: input.title, excerpt: input.excerpt, content: input.content, category: input.category, published_at: input.publishedAt, image_url: input.imageUrl, status: input.status, suggestion_enabled: Boolean(input.suggestionEnabled), suggestion_form_url: input.suggestionFormUrl }); fail(error); }
+export async function sbUpdateNews(id: number, input: any) { const { error } = await client().from("news_posts").update({ title: input.title, excerpt: input.excerpt, content: input.content, category: input.category, published_at: input.publishedAt, image_url: input.imageUrl, status: input.status, suggestion_enabled: Boolean(input.suggestionEnabled), suggestion_form_url: input.suggestionFormUrl }).eq("id", id); fail(error); }
 export async function sbDeleteNews(id: number) { const { error } = await client().from("news_posts").delete().eq("id", id); fail(error); }
 
-function mapNews(row: any): NewsPost { return { id: Number(row.id), title: row.title, excerpt: row.excerpt, content: row.content, category: row.category, publishedAt: row.published_at, imageUrl: row.image_url ?? "", status: row.status, createdAt: new Date(row.created_at), updatedAt: new Date(row.updated_at) }; }
+function mapNews(row: any): NewsPost { return { id: Number(row.id), title: row.title, excerpt: row.excerpt, content: row.content, category: row.category, publishedAt: row.published_at, imageUrl: row.image_url ?? "", status: row.status, suggestionEnabled: row.suggestion_enabled ?? false, suggestionFormUrl: row.suggestion_form_url ?? "", createdAt: new Date(row.created_at), updatedAt: new Date(row.updated_at) }; }
 
 export async function sbListBoard(includeInactive: boolean): Promise<BoardMember[]> { let query = client().from("board_members").select("*").order("sort_order").order("id"); if (!includeInactive) query = query.eq("active", true); const { data, error } = await query; fail(error); return (data ?? []).map(mapBoard); }
 export async function sbCreateBoard(input: any) { const { error } = await client().from("board_members").insert({ name: input.name, role: input.role, bio: input.bio, image_url: input.imageUrl, sort_order: input.sortOrder, active: input.active === 1 }); fail(error); }
@@ -197,6 +197,13 @@ export async function sbUpdateBoard(id: number, input: any) { const { error } = 
 export async function sbDeleteBoard(id: number) { const { error } = await client().from("board_members").delete().eq("id", id); fail(error); }
 
 function mapBoard(row: any): BoardMember { return { id: Number(row.id), name: row.name, role: row.role, bio: row.bio, imageUrl: row.image_url ?? "", sortOrder: row.sort_order, active: row.active ? 1 : 0, createdAt: new Date(row.created_at), updatedAt: new Date(row.updated_at) }; }
+
+export async function sbListCommunityServices(includeInactive: boolean): Promise<CommunityService[]> { let query = client().from("community_services").select("*").order("sort_order").order("id"); if (!includeInactive) query = query.eq("active", true); const { data, error } = await query; fail(error); return (data ?? []).map(mapCommunityService); }
+export async function sbCreateCommunityService(input: any) { const { error } = await client().from("community_services").insert({ name: input.name, business_name: input.businessName, category: input.category, description: input.description, image_url: input.imageUrl, phone: input.phone, whatsapp: input.whatsapp === 1, facebook_url: input.facebookUrl, instagram_url: input.instagramUrl, sort_order: input.sortOrder, active: input.active === 1 }); fail(error); }
+export async function sbUpdateCommunityService(id: number, input: any) { const { error } = await client().from("community_services").update({ name: input.name, business_name: input.businessName, category: input.category, description: input.description, image_url: input.imageUrl, phone: input.phone, whatsapp: input.whatsapp === 1, facebook_url: input.facebookUrl, instagram_url: input.instagramUrl, sort_order: input.sortOrder, active: input.active === 1 }).eq("id", id); fail(error); }
+export async function sbDeleteCommunityService(id: number) { const { error } = await client().from("community_services").delete().eq("id", id); fail(error); }
+
+function mapCommunityService(row: any): CommunityService { return { id: Number(row.id), name: row.name, businessName: row.business_name ?? "", category: row.category, description: row.description, imageUrl: row.image_url ?? "", phone: row.phone ?? "", whatsapp: row.whatsapp ? 1 : 0, facebookUrl: row.facebook_url ?? "", instagramUrl: row.instagram_url ?? "", sortOrder: row.sort_order ?? 0, active: row.active ? 1 : 0, createdAt: new Date(row.created_at), updatedAt: new Date(row.updated_at) }; }
 
 export async function sbListAdmins() { const { data, error } = await client().from("admin_users").select("id,name,email,role,active,created_at").eq("active", true).order("created_at"); fail(error); return data ?? []; }
 export async function sbAddAdmin(input: { name: string; email: string }) { const { data, error } = await client().from("admin_users").insert({ name: input.name, email: input.email.toLowerCase(), role: "admin", active: true }).select("*").single(); fail(error); return data; }

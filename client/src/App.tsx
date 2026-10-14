@@ -11,6 +11,7 @@ import Gallery from "./pages/Gallery";
 import Home from "./pages/Home";
 import News from "./pages/News";
 import NewsDetail from "./pages/NewsDetail";
+import Talents from "./pages/Talents";
 
 function Router() {
   return (
@@ -20,10 +21,12 @@ function Router() {
       <Route path="/actualites" component={News} />
       <Route path="/actualites/:id" component={NewsDetail} />
       <Route path="/bureau-executif" component={Board} />
+      <Route path="/talents" component={Talents} />
       <Route path="/admin" component={Admin} />
       <Route path="/admin/galerie" component={Admin} />
       <Route path="/admin/actualites" component={Admin} />
       <Route path="/admin/bureau" component={Admin} />
+      <Route path="/admin/talents" component={Admin} />
       <Route path="/admin/administrateurs" component={AdminUsers} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
