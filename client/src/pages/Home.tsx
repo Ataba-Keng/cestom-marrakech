@@ -127,7 +127,7 @@ export default function Home() {
 
             <button
               type="button"
-              className="rounded-full border border-white/30 p-2.5 lg:hidden"
+              className="ml-auto shrink-0 rounded-full border border-white/30 p-2.5 lg:hidden"
               aria-label={menuOpen ? "Fermer le menu" : "Ouvrir le menu"}
               onClick={() => setMenuOpen((open) => !open)}
             >
