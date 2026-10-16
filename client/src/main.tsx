@@ -9,7 +9,18 @@ import { startLogin } from "./const";
 import { supabase } from "./lib/supabase";
 import "./index.css";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      // Public content can be reused briefly between navigations, while new
+      // publications become visible quickly. Nothing is persisted to disk.
+      staleTime: 30_000,
+      gcTime: 5 * 60_000,
+      refetchOnWindowFocus: true,
+      refetchOnReconnect: true,
+    },
+  },
+});
 let supabaseAccessToken: string | null = null;
 if (supabase) {
   void supabase.auth.getSession().then(({ data }) => { supabaseAccessToken = data.session?.access_token ?? null; });

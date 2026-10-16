@@ -37,6 +37,15 @@ async function startServer() {
   registerStorageProxy(app);
   registerOAuthRoutes(app);
   // tRPC API
+  app.use("/api/trpc", (_req, res, next) => {
+    res.set({
+      "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+      Pragma: "no-cache",
+      Expires: "0",
+      Vary: "Authorization, Cookie",
+    });
+    next();
+  });
   app.use(
     "/api/trpc",
     createExpressMiddleware({
@@ -58,7 +67,7 @@ async function startServer() {
     console.log(`Port ${preferredPort} is busy, using port ${port} instead`);
   }
 
-  server.listen(port,"0.0.0.0", () => {
+  server.listen(port, () => {
     console.log(`Server running on http://localhost:${port}/`);
   });
 }

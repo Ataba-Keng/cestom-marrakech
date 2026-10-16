@@ -39,7 +39,15 @@ export async function setupVite(app: Express, server: Server) {
         `src="/src/main.tsx?v=${nanoid()}"`
       );
       const page = await vite.transformIndexHtml(url, template);
-      res.status(200).set({ "Content-Type": "text/html" }).end(page);
+      res
+        .status(200)
+        .set({
+          "Cache-Control": "no-cache, no-store, must-revalidate",
+          Pragma: "no-cache",
+          Expires: "0",
+          "Content-Type": "text/html; charset=utf-8",
+        })
+        .end(page);
     } catch (e) {
       vite.ssrFixStacktrace(e as Error);
       next(e);
@@ -58,10 +66,43 @@ export function serveStatic(app: Express) {
     );
   }
 
-  app.use(express.static(distPath));
+  app.use(
+    express.static(distPath, {
+      setHeaders(res, filePath) {
+        const fileName = path.basename(filePath);
+
+        // HTML and route metadata must be revalidated so deployments and
+        // published content become visible without asking visitors to clear
+        // their browser cache manually.
+        if (fileName === "index.html" || fileName === "manus-routes.json" || fileName === "sitemap.xml" || fileName === "robots.txt") {
+          res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+          res.setHeader("Pragma", "no-cache");
+          res.setHeader("Expires", "0");
+          return;
+        }
+
+        // Vite gives compiled assets content-hashed filenames, so they are
+        // safe to keep for a long time and can be reused across page loads.
+        if (/\.[a-f0-9]{8,}\.(?:css|js|map)$/i.test(fileName)) {
+          res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
+          return;
+        }
+
+        // Branding and uploaded public images may be replaced in Supabase or
+        // the public directory, so keep a moderate cache lifetime.
+        res.setHeader("Cache-Control", "public, max-age=86400, stale-while-revalidate=3600");
+      },
+    })
+  );
 
   // fall through to index.html if the file doesn't exist
   app.use("*", (_req, res) => {
-    res.sendFile(path.resolve(distPath, "index.html"));
+    res
+      .set({
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        Pragma: "no-cache",
+        Expires: "0",
+      })
+      .sendFile(path.resolve(distPath, "index.html"));
   });
 }
